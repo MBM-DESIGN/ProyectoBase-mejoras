@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import { Product } from "../models/productModel"
+import { productModel } from "../models/productModel";
 
 const getAllProducts = async (req: Request, res: Response): Promise<any> => {
   try {
@@ -86,5 +87,35 @@ const updateProduct = async (req: Request, res: Response): Promise<any> => {
     })
   }
 }
+
+//NUEVA FUNCIÓN PARA BUSCAR PRODUCTOS
+export const searchProducts = async (req: Request, res: Response) => {
+  try {
+    const { query } = req.params;
+
+    if (!query) {
+      return res.status(400).json({
+        message: "Se requiere un término de búsqueda.",
+      });
+    }
+
+    const products = await productModel.find({
+      name: { $regex: query, $options: "i" }, //Búsqueda parcial e insensible a mayúsculas/minúsculas
+    });
+
+    if (products.length === 0) {
+      return res.status(404).json({
+        message: "No se encontraron productos que coincidan con la búsqueda.",
+      });
+    }
+
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({
+      message: "Error en el servidor al buscar productos.",
+      error,
+    });
+  }
+};
 
 export { getAllProducts, addNewProduct, deleteProduct, updateProduct }
