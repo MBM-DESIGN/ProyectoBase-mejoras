@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import bcryptjs from "bcryptjs"
+import bcryptjs from "bcryptjs" //Hashing de contraseñas(Password Hashing):almacena de forma segura los hash de las contraseñas de los usuarios en mi base de datos
 import { Auth } from "../models/authModel";
 import jwt from "jsonwebtoken"
 

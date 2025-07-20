@@ -1,6 +1,5 @@
 import { Request, Response } from "express"
 import { Product } from "../models/productModel"
-import { productModel } from "../models/productModel";
 
 const getAllProducts = async (req: Request, res: Response): Promise<any> => {
   try {
@@ -89,7 +88,7 @@ const updateProduct = async (req: Request, res: Response): Promise<any> => {
 }
 
 //NUEVA FUNCIÓN PARA BUSCAR PRODUCTOS
-export const searchProducts = async (req: Request, res: Response) => {
+const searchProducts = async (req: Request, res: Response) => {
   try {
     const { query } = req.params;
 
@@ -99,7 +98,7 @@ export const searchProducts = async (req: Request, res: Response) => {
       });
     }
 
-    const products = await productModel.find({
+    const products = await Product.find({
       name: { $regex: query, $options: "i" }, //Búsqueda parcial e insensible a mayúsculas/minúsculas
     });
 
@@ -118,4 +117,4 @@ export const searchProducts = async (req: Request, res: Response) => {
   }
 };
 
-export { getAllProducts, addNewProduct, deleteProduct, updateProduct }
+export { getAllProducts, addNewProduct, deleteProduct, updateProduct, searchProducts }
