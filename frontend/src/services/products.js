@@ -3,7 +3,7 @@
 // reemplazar por la variable de entorno con la misma data
 //const BASE_API = "http://localhost:1234/api"
 
-//Asumimos que la URL base se obtiene de las variables de entorno
+//Asumimos que la URL base se obtiene de las variables de entorno.Entonces se estandariza el uso de la variable de entorno para la URL de la API de productos.
 const API_URL = `${import.meta.env.VITE_API_URL}/products`;
 
 //FUNCIONES EXISTENTES

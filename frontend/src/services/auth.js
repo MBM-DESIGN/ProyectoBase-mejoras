@@ -1,26 +1,28 @@
 // averiguar como usar una variable de entorno en un proyecto de vite/react
 
 // reemplazar por la variable de entorno con la misma data
-const BASE_API = "http://localhost:1234/api"
+//const BASE_API = "http://localhost:1234/api"
+
+// Se utiliza import.meta.env.VITE_API_URL para acceder a las variables de entorno en Vite.
+// Y en el archivo .env.development.local en la raíz del proyecto FRONTEND: VITE_API_URL=...
+const BASE_API = import.meta.env.VITE_API_URL;
 
 const register = async ({ username, email, password }) => {
-  const response = await fetch(BASE_API + "/auth/register", {
+  const response = await fetch(`${BASE_API}/auth/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, email, password })
-  })
-
-  return response
-}
+  });
+  return response;
+};
 
 const login = async ({ email, password }) => {
-  const response = await fetch(BASE_API + "/auth/login", {
+  const response = await fetch(`${BASE_API}/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password })
-  })
+  });
+  return response;
+};
 
-  return response
-}
-
-export { register, login }
+export { register, login };
